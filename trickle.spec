@@ -5,6 +5,7 @@ URL:		http://monkey.org/~marius/pages/?page=trickle
 Source:		http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
 Summary:	Lightweight userspace bandwidth shaper
 Group:		Networking/File transfer
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	BSD
 BuildRequires:	libevent-devel
 # patch from debian fix build
