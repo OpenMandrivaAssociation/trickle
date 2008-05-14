@@ -1,15 +1,16 @@
 Name:		trickle
 Version:	1.07
-Release:	%mkrel 1
+Release:	%mkrel 2
 URL:		http://monkey.org/~marius/pages/?page=trickle
 Source:		http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
 Summary:	Lightweight userspace bandwidth shaper
 Group:		Networking/File transfer
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	BSD
 BuildRequires:	libevent-devel
 # patch from debian fix build
 Patch0:		trickle-%{version}_debian.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+
 %description
 trickle is a portable lightweight userspace bandwidth shaper. It can
 run in collaborative mode (together with trickled) or in stand alone mode.
@@ -22,18 +23,24 @@ data over a socket. trickle runs entirely in userspace and does not
 require root privileges.
 
 %prep
+
 %setup -q
-%patch -p1
+%patch0 -p1
 
 %build
 %configure
 %make
 
 %install
-%{__rm} -Rf %{buildroot}
+rm -rf %{buildroot}
+
 %makeinstall
 
+%clean
+rm -rf %{buildroot}
+
 %files
+%defattr(-,root,root)
 %doc LICENSE TODO README
 %{_bindir}/%{name}
 %{_bindir}/%{name}ctl
@@ -42,4 +49,3 @@ require root privileges.
 %{_mandir}/man1/%{name}.1.*
 %{_mandir}/man5/%{name}d.conf.5.*
 %{_mandir}/man8/%{name}d.8.*
-
