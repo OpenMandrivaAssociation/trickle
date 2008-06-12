@@ -31,6 +31,8 @@ require root privileges.
 %configure
 # it mistakenly assumes in_addr_t is not defined in <netinet/in.h>
 sed -i.in_addr_t -e '/in_addr_t/d' config.h
+# parallel build broken
+RPM_BUILD_NCPUS=1; export RPM_BUILD_NCPUS
 %make
 
 %install
