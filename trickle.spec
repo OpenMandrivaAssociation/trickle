@@ -1,14 +1,14 @@
 Name:		trickle
 Version:	1.07
-Release:	%mkrel 2
+Release:	%mkrel 3
 URL:		http://monkey.org/~marius/pages/?page=trickle
 Source:		http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
 Summary:	Lightweight userspace bandwidth shaper
 Group:		Networking/File transfer
 License:	BSD
 BuildRequires:	libevent-devel
-# patch from debian fix build
-Patch0:		trickle-%{version}_debian.patch
+# patch from debian, overloads fread() and fwrite()
+Patch0:		trickle-1.07-deb-fread_fwrite_overload.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -23,12 +23,14 @@ data over a socket. trickle runs entirely in userspace and does not
 require root privileges.
 
 %prep
-
 %setup -q
 %patch0 -p1
 
+
 %build
 %configure
+# it mistakenly assumes in_addr_t is not defined in <netinet/in.h>
+sed -i.in_addr_t -e '/in_addr_t/d' config.h
 %make
 
 %install
