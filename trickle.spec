@@ -1,6 +1,6 @@
 Name:		trickle
 Version:	1.07
-Release:	%mkrel 5
+Release:	%mkrel 6
 URL:		http://monkey.org/~marius/pages/?page=trickle
 Source:		http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
 Summary:	Lightweight userspace bandwidth shaper
