@@ -1,8 +1,9 @@
 Name:		trickle
 Version:	1.07
-Release:	%mkrel 6
+Release:	%mkrel 7
 URL:		http://monkey.org/~marius/pages/?page=trickle
 Source:		http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
+Source1:	trickled.conf
 Summary:	Lightweight userspace bandwidth shaper
 Group:		Networking/File transfer
 License:	BSD
@@ -10,6 +11,8 @@ BuildRequires:	libevent-devel
 # patch from debian, overloads fread() and fwrite()
 Patch0:		trickle-1.07-deb-fread_fwrite_overload.patch
 Patch1:		trickle-1.07-format-strings.patch
+Patch2:		trickle-1.07-libdir.patch
+Patch3:		trickle-1.07-CVE-2009-0415.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -25,19 +28,21 @@ require root privileges.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%apply_patches
+touch -r configure aclocal.m4 Makefile.in stamp-h.in
 
 %build
 %configure2_5x
 # it mistakenly assumes in_addr_t is not defined in <netinet/in.h>
 sed -i.in_addr_t -e '/in_addr_t/d' config.h
-%make
+#gw parallel make considered unsafe
+make
 
 %install
 rm -rf %{buildroot}
 
 %makeinstall
+install -D -m 644 -p %SOURCE1 %buildroot%_sysconfdir/trickled.conf
 
 %clean
 rm -rf %{buildroot}
@@ -45,6 +50,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc LICENSE TODO README
+%config(noreplace) %_sysconfdir/trickled.conf
 %{_bindir}/%{name}
 %{_bindir}/%{name}ctl
 %{_bindir}/%{name}d
