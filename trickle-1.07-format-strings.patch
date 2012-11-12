@@ -1,0 +1,12 @@
+diff -p -up trickle-1.07/tricklectl.c~ trickle-1.07/tricklectl.c
+--- trickle-1.07/tricklectl.c~	2004-12-13 00:50:10.000000000 +0100
++++ trickle-1.07/tricklectl.c	2009-08-09 12:51:29.000000000 +0200
+@@ -91,7 +91,7 @@ main(int argc, char **argv)
+ 	trickled_ctl_open(&trickled_sock);
+ 
+ 	if (!trickled_sock)
+-		err(1, sockname);
++		err(1, "%s", sockname);
+ 
+ 	handle_command(i, argc, argv);
+ 
