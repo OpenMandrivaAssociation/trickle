@@ -13,6 +13,7 @@ Patch1:		trickle-1.07-format-strings.patch
 Patch2:		trickle-1.07-libdir.patch
 Patch3:		trickle-1.07-CVE-2009-0415.patch
 BuildRequires:	pkgconfig(libevent)
+BuildRequires:	pkgconfig(libtirpc)
 
 %description
 trickle is a portable lightweight userspace bandwidth shaper. It can
