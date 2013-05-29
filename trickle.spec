@@ -5,7 +5,7 @@ Release:	8
 Group:		Networking/File transfer
 License:	BSD
 Url:		http://monkey.org/~marius/pages/?page=trickle
-Source0:	http://monkey.org/~marius/trickle/trickle-%{version}.tar.gz
+Source0:	http://monkey.org/~marius/trickle/%{name}-%{version}.tar.gz
 Source1:	trickled.conf
 # patch from debian, overloads fread() and fwrite()
 Patch0:		trickle-1.07-deb-fread_fwrite_overload.patch
@@ -32,19 +32,20 @@ require root privileges.
 touch -r configure aclocal.m4 Makefile.in stamp-h.in
 
 %build
+export LDFLAGS="$LDFLAGS -ltirpc"
 %configure2_5x
 # it mistakenly assumes in_addr_t is not defined in <netinet/in.h>
 sed -i.in_addr_t -e '/in_addr_t/d' config.h
-#gw parallel make considered unsafe
+
 make
 
 %install
 %makeinstall
-install -D -m 644 -p %SOURCE1 %buildroot%_sysconfdir/trickled.conf
+install -D -m 644 -p %SOURCE1 %{buildroot}%{_sysconfdir}/trickled.conf
 
 %files
 %doc LICENSE TODO README
-%config(noreplace) %_sysconfdir/trickled.conf
+%config(noreplace) %{_sysconfdir}/trickled.conf
 %{_bindir}/%{name}
 %{_bindir}/%{name}ctl
 %{_bindir}/%{name}d
