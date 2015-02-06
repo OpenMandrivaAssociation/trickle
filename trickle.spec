@@ -1,7 +1,7 @@
 Summary:	Lightweight userspace bandwidth shaper
 Name:		trickle
 Version:	1.07
-Release:	8
+Release:	9
 Group:		Networking/File transfer
 License:	BSD
 Url:		http://monkey.org/~marius/pages/?page=trickle
