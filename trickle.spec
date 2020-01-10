@@ -28,7 +28,7 @@ require root privileges.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 touch -r configure aclocal.m4 Makefile.in stamp-h.in
 
 %build
