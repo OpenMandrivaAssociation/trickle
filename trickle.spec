@@ -4,7 +4,7 @@ Version:	1.07
 Release:	9
 Group:		Networking/File transfer
 License:	BSD
-Url:		http://monkey.org/~marius/pages/?page=trickle
+Url:		https://monkey.org/~marius/pages/?page=trickle
 Source0:	http://monkey.org/~marius/trickle/%{name}-%{version}.tar.gz
 Source1:	trickled.conf
 # patch from debian, overloads fread() and fwrite()
