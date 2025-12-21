@@ -12,6 +12,11 @@ Patch0:		trickle-1.07-deb-fread_fwrite_overload.patch
 Patch1:		trickle-1.07-format-strings.patch
 Patch2:		trickle-1.07-libdir.patch
 Patch3:		trickle-1.07-CVE-2009-0415.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(libevent)
 BuildRequires:	pkgconfig(libtirpc)
 
